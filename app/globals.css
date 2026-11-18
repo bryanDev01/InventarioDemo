@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-black: #0b0b0b;
+  --color-black-soft: #1c1c1c;
+  --color-gold: #d4af37;
+  --color-gold-hover: #b8962b;
+  --color-gold-light: #e8d08a;
+  --color-ivory: #f5f0e1;
+  --color-ivory-dark: #e6ddc4;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-black);
+  color: var(--color-black);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+}
+
+[class~="overflow-x-auto"] {
+  max-width: 100%;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 639px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  select:not([multiple]),
+  textarea {
+    font-size: 16px;
+  }
+}

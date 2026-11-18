@@ -1,0 +1,156 @@
+/* Impresora térmica de rollo POS-58: papel de 58 mm.
+   Medido en papel: el cabezal imprime desde el borde izquierdo hasta unos 45 mm;
+   de 45 a 58 mm es zona muerta, y el borde util se redondea, asi que el texto no
+   debe tocarlo. Por eso el contenido ocupa de 2.5 mm a 43 mm: quedan 2 mm de
+   holgura a la derecha (mas de una letra) y ninguna se corta.
+   A 203 DPI (8 puntos/mm), 12 px monoespaciados ocupan ~1.75 mm por caracter:
+   entran unas 23 columnas en los 40.5 mm utiles.
+   Ajustar --vale-font-size si cambia la impresora. */
+:root {
+  --paper-width: 58mm;
+  --margin-left: 2.5mm;
+  --margin-right: 15mm; /* zona muerta del cabezal (45 a 58 mm) + 2 mm de holgura */
+  --vale-font-size: 12px;
+  --vale-weight: 700;
+  --vale-weight-strong: 700;
+}
+
+.vale {
+  width: var(--paper-width);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 3mm var(--margin-right) 3mm var(--margin-left);
+  background: #fff;
+  color: #000;
+  font-family: Consolas, 'Courier New', Courier, monospace;
+  font-size: var(--vale-font-size);
+  font-weight: var(--vale-weight);
+  line-height: 1.35;
+  box-sizing: border-box;
+}
+
+.vale * {
+  box-sizing: border-box;
+}
+
+.vale-title {
+  text-align: left;
+  font-weight: var(--vale-weight-strong);
+  font-size: calc(var(--vale-font-size) + 3px);
+  margin-bottom: 2.5mm;
+  letter-spacing: 0.5px;
+}
+
+.vale-label {
+  font-weight: var(--vale-weight-strong);
+}
+
+.vale-total {
+  margin-top: 2mm;
+  text-align: left;
+}
+
+.vale-total-label {
+  font-size: var(--vale-font-size);
+  font-weight: var(--vale-weight-strong);
+}
+
+.vale-total-amount {
+  font-size: calc(var(--vale-font-size) + 6px);
+  font-weight: var(--vale-weight-strong);
+  line-height: 1.2;
+}
+
+.vale-total-usd {
+  font-size: var(--vale-font-size);
+  font-weight: var(--vale-weight-strong);
+}
+
+/* Cada dato es una sola corriente de texto que arranca a la izquierda: la
+   etiqueta en negrita y el valor a continuación. Así los nombres largos bajan
+   de línea dentro del ancho útil en vez de empezar a media tira o salirse por
+   la derecha, donde la impresora no imprime. */
+.vale-row {
+  display: block;
+}
+
+.vale-row > span {
+  overflow-wrap: anywhere;
+}
+
+.vale-row > span:first-child {
+  font-weight: var(--vale-weight-strong);
+  margin-right: 1mm;
+}
+
+.vale-block {
+  margin-top: 1mm;
+}
+
+.vale-divider {
+  border-top: 1px solid #000;
+  margin: 2.5mm 0;
+}
+
+.vale-item {
+  margin-bottom: 2.5mm;
+  break-inside: avoid;
+}
+
+.vale-name {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  font-weight: var(--vale-weight);
+}
+
+.vale-sign {
+  margin-top: 8mm;
+}
+
+.vale-sign-line {
+  border-top: 1px solid #000;
+  margin-top: 12mm;
+}
+
+/* En pantalla el vale que se imprime (el que vive en un portal sobre <body>) no se ve:
+   el que se ve es la vista previa dentro de la ventana emergente. */
+@media screen {
+  #voucher-print-area {
+    display: none !important;
+  }
+}
+
+/* Ojo: Chrome no resuelve var() dentro de @page, asi que el ancho va escrito.
+   Si cambia el rollo de la impresora, hay que cambiar los dos sitios
+   (esta regla y --paper-width). */
+@page {
+  size: 58mm auto;
+  margin: 0;
+}
+
+@media print {
+  /* Se oculta la aplicacion entera con display:none para que no ocupe espacio:
+     asi el documento impreso tiene exactamente la altura del vale y sale en una
+     sola pagina, sin una segunda hoja en blanco. */
+  body > *:not(#voucher-print-area) {
+    display: none !important;
+  }
+
+  #voucher-print-area {
+    display: block !important;
+    position: static !important;
+    width: var(--paper-width);
+    max-width: none;
+    /* Pegado al borde izquierdo, nunca centrado: la impresora solo imprime la
+       franja izquierda del papel (unos 45 mm) y de ahí a la derecha es zona
+       muerta. Centrado, el vale cae a medias en esa zona y se corta. */
+    margin: 0;
+    padding: 3mm var(--margin-right) 3mm var(--margin-left);
+    background: #fff;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

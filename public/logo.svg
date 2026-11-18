@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <!-- Inventaria demo wordmark: self-contained chip, readable on dark and light backgrounds -->
+  <rect x="2" y="2" width="396" height="116" rx="20" fill="#0B0B0B"/>
+  <rect x="2" y="2" width="396" height="116" rx="20" fill="none" stroke="#D4AF37" stroke-width="2.5"/>
+
+  <!-- Open crate / stock box emblem -->
+  <g fill="none" stroke="#D4AF37" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M40 60 L68 46 L96 60 L96 92 L68 104 L40 92 Z"/>
+    <path d="M40 60 L68 74 L96 60"/>
+    <path d="M68 74 L68 104"/>
+    <path d="M54 53 L82 66" stroke-width="3.5" opacity="0.7"/>
+  </g>
+  <path d="M44 40 L68 28 L92 40" stroke="#F5F0E1" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Wordmark -->
+  <text x="116" y="72" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" letter-spacing="1.5" fill="#F5F0E1">Inventaria</text>
+  <text x="117" y="97" font-family="Georgia, 'Times New Roman', serif" font-size="16.5" letter-spacing="4.2" fill="#D4AF37">INVENTARIO · FACTURACIÓN</text>
+</svg>
